@@ -46,4 +46,14 @@ usersRouter.patch(
   usersController.update
 )
 
+usersRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  usersController.softDelete
+)
+
 export default usersRouter
