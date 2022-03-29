@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
 import FindUserService from "../services/FindUserService";
 import ListUserService from "../services/ListUsersService";
+import SoftDeleteUserService from "../services/SoftDeleteUserService";
 import UpdateUserService from "../services/UpdateUserService";
 
 export default class UsersController {
@@ -53,5 +54,15 @@ export default class UsersController {
     })
 
     return response.json(instanceToInstance(user))
+  }
+
+  public async softDelete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+
+    const softDeleteUser = new SoftDeleteUserService()
+    
+    await softDeleteUser.execute(id)
+
+    return response.json([])
   }
 }
