@@ -2,6 +2,7 @@ import User from "../entities/User";
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
+import { IListUsers } from "../models/IListUsers";
 
 @EntityRepository(User)
 export default class UsersRepository{
@@ -12,10 +13,13 @@ export default class UsersRepository{
     this.ormRepository = getRepository(User);
   }
 
-  public async findAll(): Promise<IUser[] | undefined> {
+  public async findAll(): Promise<IListUsers | undefined> {
     const users = await this.ormRepository.find()
 
-    return users
+    return {
+      users,
+      count: users.length
+    }
   }
 
   public async findById(id: string): Promise<IUser | undefined> {
