@@ -32,4 +32,18 @@ usersRouter.get(
   usersController.show
 )
 
+usersRouter.patch(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string(),
+      email: Joi.string().email(),
+    }
+  }),
+  usersController.update
+)
+
 export default usersRouter
