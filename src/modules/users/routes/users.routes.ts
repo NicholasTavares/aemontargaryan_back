@@ -18,6 +18,11 @@ usersRouter.post(
 )
 
 usersRouter.get(
+  '/',
+  usersController.list
+)
+
+usersRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
