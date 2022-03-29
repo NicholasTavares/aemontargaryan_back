@@ -1,9 +1,23 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from "celebrate";
 import UsersController from '../controllers/UsersController';
+import SessionController from '../controllers/SessionController';
+import isAuthenticated from '@shared/middlewares/isAuthenticated';
 
 const usersRouter = Router()
 const usersController = new UsersController()
+const sessionController = new SessionController()
+
+usersRouter.post(
+  '/session',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+    }
+  }),
+  sessionController.createSession
+)
 
 usersRouter.post(
   '/',
@@ -18,7 +32,7 @@ usersRouter.post(
 )
 
 usersRouter.get(
-  '/',
+  '/', isAuthenticated,
   usersController.list
 )
 
@@ -33,7 +47,7 @@ usersRouter.get(
 )
 
 usersRouter.patch(
-  '/:id',
+  '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -47,7 +61,7 @@ usersRouter.patch(
 )
 
 usersRouter.delete(
-  '/:id',
+  '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
