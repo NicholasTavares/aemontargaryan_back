@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
 import FindUserService from "../services/FindUserService";
 import ListUserService from "../services/ListUsersService";
+import UpdateUserService from "../services/UpdateUserService";
 
 export default class UsersController {
 
@@ -36,5 +37,21 @@ export default class UsersController {
     const users = await listUsers.execute()
 
     return response.json(instanceToInstance(users))
+  }
+
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { name, email } = request.body
+    const { id } = request.params
+
+    const updateUser = new UpdateUserService()
+
+    const user = await updateUser.execute({
+      id,
+      name,
+      email,
+    })
+
+    return response.json(instanceToInstance(user))
   }
 }
