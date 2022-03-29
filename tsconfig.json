@@ -1,0 +1,30 @@
+{
+   "compilerOptions": {
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "outDir": "./dist", // pasta onde vai ficar js compilado
+      "module": "commonjs", // compilar typescript para js na versão que o browser entende
+      "lib": ["es6"], // qual versão do js vai ser gerada
+      "esModuleInterop": true, // converter import para require ao compilar
+      "allowJs": true, // permitir arquvos de js (arquivos de configuração)
+      "strictNullChecks": true,
+      "baseUrl": "./",
+      "paths": {
+         "@modules/*": [
+           "src/modules/*"
+         ],
+         "@shared/*": [
+           "src/shared/*"
+         ],
+         "@config/*": [
+            "src/config/*"
+          ]
+       },
+      "typeRoots": [
+         "@types",
+         "./node_modules/@types"
+      ],
+   }
+}
