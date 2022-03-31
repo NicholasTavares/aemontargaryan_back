@@ -12,6 +12,12 @@ export default class BooksRepository {
     this.ormRepository = getRepository(Book)
   }
 
+  public async findById(id: string): Promise<IBook | undefined> {
+    const book = await this.ormRepository.findOne(id)
+
+    return book
+  }
+
   public async create({ name }: ICreateBook): Promise<IBook> {
     const book = this.ormRepository.create({
       name
