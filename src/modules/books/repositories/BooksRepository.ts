@@ -42,4 +42,8 @@ export default class BooksRepository {
     return bookSaved
   }
 
+  public async softDelete(id: string){
+    return this.ormRepository.softDelete(id)
+  }
+
 }
