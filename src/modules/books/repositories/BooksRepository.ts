@@ -36,4 +36,10 @@ export default class BooksRepository {
     return book
   }
 
+  public async save(book: IBook): Promise<IBook> {
+    const bookSaved = await this.ormRepository.save(book)
+
+    return bookSaved
+  }
+
 }
