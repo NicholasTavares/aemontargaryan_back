@@ -37,6 +37,16 @@ usersRouter.get(
 )
 
 usersRouter.get(
+  '/name',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+    }
+  }),
+  usersController.findName
+)
+
+usersRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
