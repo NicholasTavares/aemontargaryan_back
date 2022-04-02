@@ -11,6 +11,16 @@ booksRouter.get(
   booksController.list
 )
 
+booksRouter.get(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
+  booksController.show
+)
+
 booksRouter.post(
   '/', isAuthenticated,
   celebrate({
