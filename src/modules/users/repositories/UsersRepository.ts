@@ -1,5 +1,5 @@
 import User from "../entities/User";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
@@ -32,6 +32,16 @@ export default class UsersRepository {
     const user = await this.ormRepository.findOne({
       where: {
         email,
+      }
+    })
+
+    return user
+  }
+
+  public async findByName(name: string): Promise<IUser[]> {
+    const user = await this.ormRepository.find({
+      where: {
+        name: Like(`%${name}%`),
       }
     })
 
