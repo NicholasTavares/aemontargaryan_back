@@ -5,7 +5,7 @@ import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
 
 @EntityRepository(User)
-export default class UsersRepository{
+export default class UsersRepository {
 
   private ormRepository: Repository<User>
 
@@ -65,7 +65,7 @@ export default class UsersRepository{
     return userSaved
   }
 
-  public async softDelete(id: string){
+  public async softDelete(id: string) {
     return this.ormRepository.softDelete(id)
   }
 }
