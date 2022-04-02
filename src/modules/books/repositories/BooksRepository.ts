@@ -28,6 +28,16 @@ export default class BooksRepository {
     return book
   }
 
+  public async findByName(name: string): Promise<IBook | undefined> {
+    const book = await this.ormRepository.findOne({
+      where: {
+        name
+      }
+    })
+
+    return book
+  }
+
   public async create({ name }: ICreateBook): Promise<IBook> {
     const book = this.ormRepository.create({
       name
