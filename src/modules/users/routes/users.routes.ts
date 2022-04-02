@@ -37,6 +37,16 @@ usersRouter.get(
 )
 
 usersRouter.get(
+  '/email',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email(),
+    }
+  }),
+  usersController.findEmail
+)
+
+usersRouter.get(
   '/name',
   celebrate({
     [Segments.BODY]: {
