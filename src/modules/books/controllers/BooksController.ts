@@ -1,6 +1,7 @@
 import { instanceToInstance } from "class-transformer"
 import { Request, Response } from "express"
 import CreateBookService from "../services/CreateBookService"
+import FindBookService from "../services/FindBookService"
 import ListBooksService from "../services/ListBooksService"
 
 export default class BooksController {
@@ -22,5 +23,15 @@ export default class BooksController {
     const books = await listBooks.execute()
 
     return response.json(instanceToInstance(books))
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const {id} = request.body
+
+    const showBook = new FindBookService()
+
+    const book = await showBook.execute(id)
+
+    return response.json(instanceToInstance(book))
   }
 }
