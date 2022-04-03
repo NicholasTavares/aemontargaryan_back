@@ -27,7 +27,7 @@ export default class UsersController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const {id} = request.body
+    const {id} = request.params
 
     const showUser = new FindUserService()
 
