@@ -68,6 +68,12 @@ export default class BooksRepository {
   }
 
   public async softDelete(id: string){
+    const book = await this.findById(id)
+
+    if (!book) {
+      throw new AppError('Book not found')
+    }
+
     return this.ormRepository.softDelete(id)
   }
 
