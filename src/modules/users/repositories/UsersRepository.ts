@@ -3,6 +3,7 @@ import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
+import AppError from "@shared/errors/AppError";
 
 @EntityRepository(User)
 export default class UsersRepository {
@@ -28,12 +29,16 @@ export default class UsersRepository {
     return user
   }
 
-  public async findByEmail(email: string): Promise<IUser | undefined> {
+  public async findByEmail(email: string): Promise<IUser> {
     const user = await this.ormRepository.findOne({
       where: {
         email,
       }
     })
+
+    if (!user) {
+      throw new AppError('User not found')
+    }
 
     return user
   }

@@ -9,10 +9,6 @@ class FindEmailUserService {
 
     const user = await usersRepository.findByEmail(email)
 
-    if (!user) {
-      throw new AppError('User not found')
-    }
-
     return user
   }
 
