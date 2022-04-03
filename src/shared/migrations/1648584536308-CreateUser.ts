@@ -28,17 +28,17 @@ export class CreateUser1648584536308 implements MigrationInterface {
                         type: 'varchar'
                     }),
                     new TableColumn({
-                        name: 'created_at',
+                        name: 'createdAt',
                         type: 'timestamp',
                         default: 'now()',
                     }),
                     new TableColumn({
-                        name: 'updated_at',
+                        name: 'updatedAt',
                         type: 'timestamp',
                         default: 'now()',
                     }),
                     new TableColumn({
-                        name: 'deleted_at',
+                        name: 'deletedAt',
                         isNullable: true,
                         type: 'timestamp',
                         default: 'NULL',
