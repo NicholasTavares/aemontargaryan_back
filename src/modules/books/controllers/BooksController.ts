@@ -27,7 +27,7 @@ export default class BooksController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body
+    const { id } = request.params
 
     const showBook = new FindBookService()
 
