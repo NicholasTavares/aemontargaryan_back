@@ -50,10 +50,6 @@ export default class ChaptersRepository {
       }
     })
 
-    if (!chapter) {
-      throw new AppError('Chapter not found!')
-    }
-
     return chapter
   }
 
