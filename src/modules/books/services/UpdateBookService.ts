@@ -10,10 +10,6 @@ class UpdateBookService {
 
     const book = await booksRepository.findById(id)
 
-    if (!book) {
-      throw new AppError('Book not found!')
-    }
-
     if (book.name === name) {
       return book
     }
