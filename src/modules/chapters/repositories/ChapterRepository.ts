@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import Chapter from "../entities/Chapter";
 import { IChapter } from "../models/IChapter";
 import { IListChapters } from "../models/IListChapters";
@@ -28,6 +28,16 @@ export default class ChapterRepository {
     if (!chapter) {
       throw new AppError('Chapter not found!')
     }
+
+    return chapter
+  }
+
+  public async findByName(name: string): Promise<IChapter[]> {
+    const chapter = await this.ormRepository.find({
+      where: {
+        name: Like(`%${name}%`)
+      }
+    })
 
     return chapter
   }
