@@ -21,14 +21,19 @@ booksRouter.get(
   booksController.show
 )
 
-booksRouter.post(
-  '/', isAuthenticated,
+booksRouter.patch(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
     }
   }),
-  booksController.create
+  booksController.update
 )
 
 export default booksRouter
