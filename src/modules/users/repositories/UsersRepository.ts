@@ -85,6 +85,12 @@ export default class UsersRepository {
   }
 
   public async softDelete(id: string) {
+    const user = await this.findById(id)
+
+    if (!user) {
+      throw new AppError('User not found')
+    }
+
     return this.ormRepository.softDelete(id)
   }
 }
