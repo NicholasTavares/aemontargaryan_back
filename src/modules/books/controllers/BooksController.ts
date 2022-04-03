@@ -2,6 +2,7 @@ import { instanceToInstance } from "class-transformer"
 import { Request, Response } from "express"
 import CreateBookService from "../services/CreateBookService"
 import FindBookService from "../services/FindBookService"
+import FindNameBookService from "../services/FindNameBookService"
 import ListBooksService from "../services/ListBooksService"
 import SoftDeleteBookService from "../services/SoftDeleteBookService"
 import UpdateBookService from "../services/UpdateBookService"
@@ -37,6 +38,16 @@ export default class BooksController {
     return response.json(instanceToInstance(book))
   }
 
+  public async findName(request: Request, response: Response): Promise<Response> {
+    const { name } = request.body
+
+    const findNameBooks = new FindNameBookService()
+
+    const books = await findNameBooks.execute(name)
+
+    return response.json(instanceToInstance(books))
+  }
+
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
     const { name } = request.body
@@ -52,7 +63,7 @@ export default class BooksController {
   }
 
   public async softDelete(request: Request, response: Response): Promise<Response> {
-    const {id} = request.params
+    const { id } = request.params
 
     const softDeleteBook = new SoftDeleteBookService()
 
