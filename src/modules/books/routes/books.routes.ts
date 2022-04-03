@@ -11,6 +11,16 @@ booksRouter.get(
   booksController.list
 )
 
+booksRouter.post(
+  '/', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+    }
+  }),
+  booksController.create
+)
+
 booksRouter.get(
   '/:id', isAuthenticated,
   celebrate({
