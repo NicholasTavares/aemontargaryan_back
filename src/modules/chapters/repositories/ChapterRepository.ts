@@ -71,4 +71,14 @@ export default class ChapterRepository {
     return chapterSaved
   }
 
+  public async softDelete(id: string){
+    const chapter = await this.findById(id)
+
+    if (!chapter) {
+      throw new AppError('Chapter not found')
+    }
+
+    return this.ormRepository.softDelete(id)
+  }
+
 }
