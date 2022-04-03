@@ -42,4 +42,18 @@ export default class ChapterRepository {
     return chapter
   }
 
+  public async findByExactName(name: string): Promise<IChapter | undefined> {
+    const chapter = await this.ormRepository.findOne({
+      where: {
+        name
+      }
+    })
+
+    if (!chapter) {
+      throw new AppError('Chapter not found!')
+    }
+
+    return chapter
+  }
+
 }
