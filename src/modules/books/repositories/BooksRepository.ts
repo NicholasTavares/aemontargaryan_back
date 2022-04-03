@@ -1,5 +1,5 @@
 import Book from "../entities/Book";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IBook } from "../models/IBook";
 import { ICreateBook } from "../models/ICreateBook";
 import { IListBooks } from "../models/IListBooks";
@@ -28,7 +28,17 @@ export default class BooksRepository {
     return book
   }
 
-  public async findByName(name: string): Promise<IBook | undefined> {
+  public async findByName(name: string): Promise<IBook[]> {
+    const book = await this.ormRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+      }
+    })
+
+    return book
+  }
+
+  public async findByExactName(name: string): Promise<IBook | undefined> {
     const book = await this.ormRepository.findOne({
       where: {
         name
