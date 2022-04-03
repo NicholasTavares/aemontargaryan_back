@@ -57,12 +57,18 @@ export default class ChapterRepository {
     return chapter
   }
 
-  public async create({name}: ICreateChapter): Promise<IChapter> {
+  public async create({ name }: ICreateChapter): Promise<IChapter> {
     const chapter = this.ormRepository.create({
       name
     })
 
     return chapter
+  }
+
+  public async save(chapter: IChapter): Promise<IChapter> {
+    const chapterSaved = await this.ormRepository.save(chapter)
+
+    return chapterSaved
   }
 
 }
