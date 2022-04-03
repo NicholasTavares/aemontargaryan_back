@@ -1,5 +1,7 @@
+import AppError from "@shared/errors/AppError";
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import Chapter from "../entities/Chapter";
+import { IChapter } from "../models/IChapter";
 import { IListChapters } from "../models/IListChapters";
 
 @EntityRepository(Chapter)
@@ -18,6 +20,16 @@ export default class ChapterRepository {
       chapters,
       count: chapters.length
     }
+  }
+
+  public async findById(id: string): Promise<IChapter | undefined> {
+    const chapter = await this.ormRepository.findOne(id)
+
+    if (!chapter) {
+      throw new AppError('Chapter not found!')
+    }
+
+    return chapter
   }
 
 }
