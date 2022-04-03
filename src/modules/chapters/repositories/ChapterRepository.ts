@@ -2,6 +2,7 @@ import AppError from "@shared/errors/AppError";
 import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import Chapter from "../entities/Chapter";
 import { IChapter } from "../models/IChapter";
+import { ICreateChapter } from "../models/ICreateChapter";
 import { IListChapters } from "../models/IListChapters";
 
 @EntityRepository(Chapter)
@@ -52,6 +53,14 @@ export default class ChapterRepository {
     if (!chapter) {
       throw new AppError('Chapter not found!')
     }
+
+    return chapter
+  }
+
+  public async create({name}: ICreateChapter): Promise<IChapter> {
+    const chapter = this.ormRepository.create({
+      name
+    })
 
     return chapter
   }
