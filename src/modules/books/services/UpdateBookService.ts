@@ -19,7 +19,7 @@ class UpdateBookService {
     }
 
     if (name) {
-      const nameExists = await booksRepository.findByName(name)
+      const nameExists = await booksRepository.findByExactName(name)
 
       if (nameExists && name !== book.name) {
         throw new AppError('There is already one book with this name!')
