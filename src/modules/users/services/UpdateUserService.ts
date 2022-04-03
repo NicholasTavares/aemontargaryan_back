@@ -10,10 +10,6 @@ class UpdateUserService {
 
     const user = await usersRepository.findById(id)
 
-    if (!user) {
-      throw new AppError('User not found')
-    }
-
     if (user.name === name || user.email === email) {
       return user
     }
