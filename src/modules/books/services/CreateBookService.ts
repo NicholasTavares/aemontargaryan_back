@@ -8,7 +8,7 @@ class CreateBookService {
   public async execute({ name }: ICreateBook): Promise<IBook> {
     const booksRepository = getCustomRepository(BooksRepository);
     
-    const bookExists = await booksRepository.findByName(name);
+    const bookExists = await booksRepository.findByExactName(name);
 
     if (bookExists) {
       throw new AppError('Name book already used');
