@@ -6,7 +6,7 @@ import { ICreateChapter } from "../models/ICreateChapter";
 import { IListChapters } from "../models/IListChapters";
 
 @EntityRepository(Chapter)
-export default class ChapterRepository {
+export default class ChaptersRepository {
 
   private ormRepository: Repository<Chapter>
 
