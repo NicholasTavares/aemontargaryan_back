@@ -23,7 +23,7 @@ export default class BooksRepository {
     }
   }
 
-  public async findById(id: string): Promise<IBook | undefined> {
+  public async findById(id: string): Promise<IBook> {
     const book = await this.ormRepository.findOne(id)
 
     if (!book) {
