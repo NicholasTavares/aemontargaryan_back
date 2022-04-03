@@ -3,6 +3,7 @@ import { Request, Response } from "express"
 import CreateBookService from "../services/CreateBookService"
 import FindBookService from "../services/FindBookService"
 import ListBooksService from "../services/ListBooksService"
+import SoftDeleteBookService from "../services/SoftDeleteBookService"
 import UpdateBookService from "../services/UpdateBookService"
 
 export default class BooksController {
@@ -48,5 +49,15 @@ export default class BooksController {
     })
 
     return response.json(instanceToInstance(book))
+  }
+
+  public async softDelete(request: Request, response: Response): Promise<Response> {
+    const {id} = request.params
+
+    const softDeleteBook = new SoftDeleteBookService()
+
+    await softDeleteBook.execute(id)
+
+    return response.json([])
   }
 }
