@@ -14,6 +14,10 @@ class UpdateUserService {
       throw new AppError('User not found')
     }
 
+    if (user.name === name || user.email === email) {
+      return user
+    }
+
     if (email) {
       const userExists = await usersRepository.findByEmail(email)
 
