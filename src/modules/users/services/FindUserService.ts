@@ -9,10 +9,6 @@ class FindUserService {
 
     const user = await usersRepository.findById(id)
 
-    if (!user) {
-      throw new AppError('User not found')
-    }
-
     return user
   }
 

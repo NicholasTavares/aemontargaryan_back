@@ -23,8 +23,12 @@ export default class UsersRepository {
     }
   }
 
-  public async findById(id: string): Promise<IUser | undefined> {
+  public async findById(id: string): Promise<IUser> {
     const user = await this.ormRepository.findOne(id)
+
+    if (!user) {
+      throw new AppError('User not found')
+    }
 
     return user
   }
