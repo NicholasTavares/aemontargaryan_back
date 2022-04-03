@@ -46,4 +46,14 @@ booksRouter.patch(
   booksController.update
 )
 
+booksRouter.delete(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
+  booksController.softDelete
+)
+
 export default booksRouter
