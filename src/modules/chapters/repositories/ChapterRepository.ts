@@ -23,7 +23,7 @@ export default class ChaptersRepository {
     }
   }
 
-  public async findById(id: string): Promise<IChapter | undefined> {
+  public async findById(id: string): Promise<IChapter> {
     const chapter = await this.ormRepository.findOne(id)
 
     if (!chapter) {
