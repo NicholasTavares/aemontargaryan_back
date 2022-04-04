@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreateChapterService from "../services/CreateChapterService";
 import FindChapterService from "../services/FindChapterService";
 import ListChaptersService from "../services/ListChaptersService";
+import SoftDeleteChapterService from "../services/SoftDeleteChapterService";
 import UpdateChapterService from "../services/UpdateChapterService";
 
 export default class ChaptersRepository {
@@ -49,5 +50,15 @@ export default class ChaptersRepository {
     })
 
     return response.json(instanceToInstance(chapter))
+  }
+
+  public async softDelete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+
+    const softDeleteChapter = new SoftDeleteChapterService()
+
+    await softDeleteChapter.execute(id)
+
+    return response.json([])
   }
 }
