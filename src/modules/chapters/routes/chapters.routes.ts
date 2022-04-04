@@ -16,4 +16,14 @@ chaptersRouter.post(
   chaptersController.create
 )
 
+chaptersRouter.post(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required()
+    }
+  }),
+  chaptersController.show
+)
+
 export default chaptersRouter
