@@ -2,6 +2,7 @@ import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateChapterService from "../services/CreateChapterService";
 import FindChapterService from "../services/FindChapterService";
+import ListChaptersService from "../services/ListChaptersService";
 
 export default class ChaptersRepository {
   
@@ -25,5 +26,13 @@ export default class ChaptersRepository {
     const chapter = await showChapter.execute(id)
 
     return response.json(instanceToInstance(chapter))
+  }
+
+  public async list(request: Request, response: Response): Promise<Response> {
+    const listChapters = new ListChaptersService()
+
+    const chapters = await listChapters.execute()
+
+    return response.json(instanceToInstance(chapters))
   }
 }
