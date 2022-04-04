@@ -17,6 +17,11 @@ chaptersRouter.post(
 )
 
 chaptersRouter.get(
+  '/', isAuthenticated,
+  chaptersController.list
+)
+
+chaptersRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
