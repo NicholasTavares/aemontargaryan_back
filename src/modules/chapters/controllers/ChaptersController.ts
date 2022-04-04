@@ -2,6 +2,7 @@ import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateChapterService from "../services/CreateChapterService";
 import FindChapterService from "../services/FindChapterService";
+import FindNameChapterService from "../services/FindNameChapterService";
 import ListChaptersService from "../services/ListChaptersService";
 import SoftDeleteChapterService from "../services/SoftDeleteChapterService";
 import UpdateChapterService from "../services/UpdateChapterService";
@@ -36,6 +37,16 @@ export default class ChaptersRepository {
     const chapters = await listChapters.execute()
 
     return response.json(instanceToInstance(chapters))
+  }
+
+  public async findName(request: Request, response: Response): Promise<Response> {
+    const { name } = request.body
+
+    const findNameChapter = new FindNameChapterService()
+
+    const chapter = await findNameChapter.execute(name)
+
+    return response.json(instanceToInstance(chapter))
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
