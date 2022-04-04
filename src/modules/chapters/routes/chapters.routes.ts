@@ -22,6 +22,16 @@ chaptersRouter.get(
 )
 
 chaptersRouter.get(
+  '/name', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required()
+    }
+  }),
+  chaptersController.findName
+)
+
+chaptersRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
