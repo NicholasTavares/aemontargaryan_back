@@ -46,4 +46,14 @@ chaptersRouter.patch(
   chaptersController.update
 )
 
+chaptersRouter.delete(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required()
+    }
+  }),
+  chaptersController.softDelete
+)
+
 export default chaptersRouter
