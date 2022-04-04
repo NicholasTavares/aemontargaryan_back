@@ -31,4 +31,19 @@ chaptersRouter.get(
   chaptersController.show
 )
 
+chaptersRouter.patch(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required()
+    }
+  }),
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required()
+    }
+  }),
+  chaptersController.update
+)
+
 export default chaptersRouter
