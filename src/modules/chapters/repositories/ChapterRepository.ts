@@ -3,6 +3,7 @@ import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import Chapter from "../entities/Chapter";
 import { IChapter } from "../models/IChapter";
 import { ICreateChapter } from "../models/ICreateChapter";
+import { IFindById } from "../models/IFindById";
 import { IListChapters } from "../models/IListChapters";
 
 @EntityRepository(Chapter)
@@ -23,7 +24,7 @@ export default class ChaptersRepository {
     }
   }
 
-  public async findById(id: string): Promise<IChapter> {
+  public async findById({id}: IFindById): Promise<IChapter> {
     const chapter = await this.ormRepository.findOne(id)
 
     if (!chapter) {
