@@ -4,6 +4,7 @@ import { IBook } from "../models/IBook";
 import { ICreateBook } from "../models/ICreateBook";
 import { IListBooks } from "../models/IListBooks";
 import AppError from "@shared/errors/AppError";
+import { IFindById } from "../models/IFindById";
 
 @EntityRepository(Book)
 export default class BooksRepository {
@@ -23,7 +24,7 @@ export default class BooksRepository {
     }
   }
 
-  public async findById(id: string): Promise<IBook> {
+  public async findById({id}: IFindById): Promise<IBook> {
     const book = await this.ormRepository.findOne(id)
 
     if (!book) {
