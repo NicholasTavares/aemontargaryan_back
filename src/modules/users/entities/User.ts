@@ -1,10 +1,11 @@
+import Role from '@modules/roles/entities/Role';
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IUser } from '../models/IUser'
 
 @Entity('users')
 class User implements IUser {
-
+  
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -18,14 +19,17 @@ class User implements IUser {
   @Exclude()
   password: string
 
+  @ManyToOne(() => Role, (role) => role.id)
+  role: Role
+
   @CreateDateColumn()
-  createdAt: Date
+  created_at: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updated_at: Date
 
   @DeleteDateColumn()
-  deletedAt: Date
+  deleted_at: Date
 }
 
 export default User
