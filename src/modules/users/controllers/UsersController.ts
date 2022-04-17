@@ -85,6 +85,6 @@ export default class UsersController {
     
     await softDeleteUser.execute(id)
 
-    return response.json([])
+    return response.json(true)
   }
 }
