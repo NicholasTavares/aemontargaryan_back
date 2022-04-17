@@ -8,14 +8,18 @@ class UpdateUserService {
   public async execute({id, name, email}: IUpdateUser): Promise<IUser> {
     const usersRepository = getCustomRepository(UsersRepository)
 
-    const user = await usersRepository.findById(id)
+    const user = await usersRepository.findById({
+      id
+    })
 
     if (user.name === name || user.email === email) {
       return user
     }
 
     if (email) {
-      const userExists = await usersRepository.findByEmail(email)
+      const userExists = await usersRepository.findByEmail({
+        email
+      })
 
       if (userExists && email !== user.email) {
         throw new AppError('There is already one user with this email ')

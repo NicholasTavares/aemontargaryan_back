@@ -5,7 +5,9 @@ class SoftDeleteUserService {
   public async execute(id: string) {
     const usersRepository = getCustomRepository(UsersRepository);
     
-    await usersRepository.softDelete(id)
+    await usersRepository.softDelete({
+      id
+    })
   }
 }
 

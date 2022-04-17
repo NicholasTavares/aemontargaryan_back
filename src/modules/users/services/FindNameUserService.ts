@@ -6,7 +6,9 @@ class FindNameUserService {
   public async execute(name: string): Promise<IUser[]> {
     const usersRepository = getCustomRepository(UsersRepository)
 
-    const users = await usersRepository.findByName(name)
+    const users = await usersRepository.findByName({
+      name
+    })
 
     return users
   }

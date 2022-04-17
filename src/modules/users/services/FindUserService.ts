@@ -7,7 +7,9 @@ class FindUserService {
   public async execute(id: string): Promise<IUser> {
     const usersRepository = getCustomRepository(UsersRepository)
 
-    const user = await usersRepository.findById(id)
+    const user = await usersRepository.findById({
+      id
+    })
 
     return user
   }

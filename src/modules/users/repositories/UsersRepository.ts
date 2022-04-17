@@ -4,6 +4,11 @@ import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
 import AppError from "@shared/errors/AppError";
+import { IFindById } from "../models/IFindById";
+import { ISoftDelete } from "../models/ISoftDelete";
+import { IFindByEmail } from "../models/IFindByEmail";
+import { IFindByName } from "../models/IFindByName";
+import { IFindByEmailForSession } from "../models/IFindByEmailForSession";
 
 @EntityRepository(User)
 export default class UsersRepository {
@@ -23,7 +28,7 @@ export default class UsersRepository {
     }
   }
 
-  public async findById(id: string): Promise<IUser> {
+  public async findById({ id }: IFindById): Promise<IUser> {
     const user = await this.ormRepository.findOne(id)
 
     if (!user) {
@@ -33,7 +38,7 @@ export default class UsersRepository {
     return user
   }
 
-  public async findByEmail(email: string): Promise<IUser> {
+  public async findByEmail({ email }: IFindByEmail): Promise<IUser> {
     const user = await this.ormRepository.findOne({
       where: {
         email,
@@ -47,7 +52,7 @@ export default class UsersRepository {
     return user
   }
 
-  public async findByName(name: string): Promise<IUser[]> {
+  public async findByName({ name }: IFindByName): Promise<IUser[]> {
     const user = await this.ormRepository.find({
       where: {
         name: Like(`%${name}%`),
@@ -57,7 +62,7 @@ export default class UsersRepository {
     return user
   }
 
-  public async findByEmailForSession(email: string): Promise<IUser | undefined> {
+  public async findByEmailForSession({ email }: IFindByEmailForSession): Promise<IUser | undefined> {
     const user = await this.ormRepository.findOne({
       where: {
         email,
@@ -84,8 +89,10 @@ export default class UsersRepository {
     return userSaved
   }
 
-  public async softDelete(id: string) {
-    const user = await this.findById(id)
+  public async softDelete({ id }: ISoftDelete) {
+    const user = await this.findById({
+      id
+    })
 
     if (!user) {
       throw new AppError('User not found')

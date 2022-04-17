@@ -8,7 +8,9 @@ class CreateSessionsService {
   public async execute({ email, password }: ICreateSession): Promise<ICreateSessionResponse> {
     const usersRepository = new UsersRepository()
     
-    const user = await usersRepository.findByEmailForSession(email)
+    const user = await usersRepository.findByEmailForSession({
+      email
+    })
 
     if (!user) {
       throw new AppError('Incorrect email/password combination', 401);
