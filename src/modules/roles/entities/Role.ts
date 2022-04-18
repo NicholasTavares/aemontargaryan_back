@@ -1,5 +1,11 @@
-import User from '@modules/users/entities/User';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { 
+  Column, 
+  CreateDateColumn, 
+  DeleteDateColumn, 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn 
+} from "typeorm";
 import { IRole } from '../models/IRole';
 
 @Entity('roles')
@@ -7,9 +13,6 @@ class Role implements IRole {
 
   @PrimaryGeneratedColumn('uuid')
   id: string
-
-  @OneToMany(() => User, (user) => user.role)
-  role: User
 
   @Column()
   name: string
