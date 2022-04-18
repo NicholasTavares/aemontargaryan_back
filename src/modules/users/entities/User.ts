@@ -19,6 +19,9 @@ class User implements IUser {
   @Exclude()
   password: string
 
+  /*
+    TODO: ver um valor default para o campo abaixo
+  */
   @ManyToOne(() => Role, (role) => role.id)
   role: Role
 
