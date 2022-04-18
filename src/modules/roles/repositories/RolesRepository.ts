@@ -7,6 +7,7 @@ import { IFindById } from "../models/IFindById";
 import { ISoftDelete } from "../models/ISoftDelete";
 import { IFindByName } from "../models/IFindByName";
 import { ICreateRole } from "../models/ICreateRole";
+import { IFindByExactName } from "../models/IFindByExactName";
 
 @EntityRepository(Role)
 export default class UsersRepository {
@@ -36,6 +37,16 @@ export default class UsersRepository {
     return role
   }
 
+  public async findByExactName({name}: IFindByExactName): Promise<IRole | undefined> {
+    const role = await this.ormRepository.findOne({
+      where: {
+        name
+      }
+    })
+
+    return role
+  }
+
   public async findByName({ name }: IFindByName): Promise<IRole[]> {
     const user = await this.ormRepository.find({
       where: {
@@ -54,8 +65,8 @@ export default class UsersRepository {
     return user
   }
 
-  public async save(user: IRole): Promise<IRole> {
-    const userSaved = await this.ormRepository.save(user)
+  public async save(role: IRole): Promise<IRole> {
+    const userSaved = await this.ormRepository.save(role)
 
     return userSaved
   }
@@ -66,7 +77,7 @@ export default class UsersRepository {
     })
 
     if (!role) {
-      throw new AppError('User not found')
+      throw new AppError('Role not found')
     }
 
     return this.ormRepository.softDelete(id)
