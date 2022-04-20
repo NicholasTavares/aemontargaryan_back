@@ -17,6 +17,10 @@ rolesRouter.post(
 )
 
 rolesRouter.get(
+  '/', isAuthenticated, rolesController.list
+)
+
+rolesRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
