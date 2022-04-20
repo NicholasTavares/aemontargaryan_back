@@ -2,6 +2,7 @@ import { instanceToInstance } from "class-transformer"
 import { Request, Response } from "express"
 import CreateRoleService from "../services/CreateRoleService"
 import FindRoleService from "../services/FindRoleService"
+import ListRolesService from "../services/ListRolesService"
 
 export default class RolesController {
   
@@ -27,5 +28,13 @@ export default class RolesController {
     })
 
     return response.json(instanceToInstance(role))
+  }
+
+  public async list(request: Request, response: Response): Promise<Response> {
+    const listRoles = new ListRolesService()
+
+    const roles = await listRoles.execute()
+
+    return response.json(instanceToInstance(roles))
   }
 }
