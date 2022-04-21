@@ -4,6 +4,7 @@ import CreateRoleService from "../services/CreateRoleService"
 import FindNameRoleService from "../services/FindNameRoleService"
 import FindRoleService from "../services/FindRoleService"
 import ListRolesService from "../services/ListRolesService"
+import SoftDeleteRoleService from "../services/SoftDeleteRoleService"
 import UpdateRoleService from "../services/UpdateRoleService"
 
 export default class RolesController {
@@ -64,5 +65,17 @@ export default class RolesController {
     })
 
     return response.json(instanceToInstance(roles))
+  }
+
+  public async softDelete(request: Request, response: Response): Promise<Response> {
+    const {id} = request.params
+
+    const softDeleteRoles = new SoftDeleteRoleService()
+
+    await softDeleteRoles.execute({
+      id
+    })
+
+    return response.json(true)
   }
 }
