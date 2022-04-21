@@ -59,7 +59,9 @@ export default class RolesController {
 
     const findNameRoles = new FindNameRoleService()
 
-    const roles = await findNameRoles.execute(name)
+    const roles = await findNameRoles.execute({
+      name
+    })
 
     return response.json(instanceToInstance(roles))
   }
