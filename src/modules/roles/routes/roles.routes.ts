@@ -55,4 +55,14 @@ rolesRouter.patch(
   rolesController.update
 )
 
+rolesRouter.delete(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required()
+    }
+  }),
+  rolesController.softDelete
+)
+
 export default rolesRouter
