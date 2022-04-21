@@ -45,4 +45,14 @@ rolesRouter.patch(
   rolesController.update
 )
 
+rolesRouter.patch(
+  '/name', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required()
+    }
+  }),
+  rolesController.findName
+)
+
 export default rolesRouter
