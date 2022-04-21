@@ -10,7 +10,7 @@ import { ICreateRole } from "../models/ICreateRole";
 import { IFindByExactName } from "../models/IFindByExactName";
 
 @EntityRepository(Role)
-export default class UsersRepository {
+export default class RolesRepository {
 
   private ormRepository: Repository<Role>
 
