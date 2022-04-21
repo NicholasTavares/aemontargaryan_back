@@ -3,6 +3,7 @@ import { Request, Response } from "express"
 import CreateRoleService from "../services/CreateRoleService"
 import FindRoleService from "../services/FindRoleService"
 import ListRolesService from "../services/ListRolesService"
+import UpdateRoleService from "../services/UpdateRoleService"
 
 export default class RolesController {
   
@@ -36,5 +37,19 @@ export default class RolesController {
     const roles = await listRoles.execute()
 
     return response.json(instanceToInstance(roles))
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const {id} = request.params
+    const {name} = request.body
+
+    const updateRoles = new UpdateRoleService()
+
+    const role = await updateRoles.execute({
+      id,
+      name
+    })
+
+    return response.json(instanceToInstance(role))
   }
 }
