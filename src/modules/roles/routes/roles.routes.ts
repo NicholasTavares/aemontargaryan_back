@@ -21,6 +21,16 @@ rolesRouter.get(
 )
 
 rolesRouter.get(
+  '/name', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required()
+    }
+  }),
+  rolesController.findName
+)
+
+rolesRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
@@ -43,16 +53,6 @@ rolesRouter.patch(
     }
   }),
   rolesController.update
-)
-
-rolesRouter.patch(
-  '/name', isAuthenticated,
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required()
-    }
-  }),
-  rolesController.findName
 )
 
 export default rolesRouter
