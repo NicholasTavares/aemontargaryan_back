@@ -14,9 +14,9 @@ class Theory_text implements ITheory_text {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @OneToOne(() => Theory)
-  @JoinColumn()
-  id_theory: Theory;
+  @OneToOne(() => Theory, theory => theory.id)
+  @JoinColumn({name: 'id_theory'})
+  id_theory: string;
 
   @Column()
   theory: string;
