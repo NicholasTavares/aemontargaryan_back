@@ -17,4 +17,14 @@ theoriesRouter.post(
   theoriesController.create
 )
 
+theoriesRouter.delete(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
+  theoriesController.softDelete
+)
+
 export default theoriesRouter
