@@ -1,3 +1,4 @@
+import Theory_text from "@modules/theories_text/entities/Theory_text";
 import User from "@modules/users/entities/User";
 import { 
   Column, 
@@ -5,6 +6,7 @@ import {
   DeleteDateColumn, 
   Entity, 
   ManyToOne, 
+  OneToOne, 
   PrimaryGeneratedColumn, 
   UpdateDateColumn 
 } from "typeorm";
@@ -18,8 +20,11 @@ class Theory implements ITheory {
   @Column()
   title: string
 
+  @OneToOne(() => Theory_text, (theory_text) => theory_text.id_theory, {cascade: true})
+  theory_text: Theory_text
+
   @ManyToOne(() => User, (user) => user.id)
-  id_user: User
+  id_user: string
 
   @CreateDateColumn()
   created_at: Date
