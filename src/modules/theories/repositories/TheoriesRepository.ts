@@ -37,7 +37,9 @@ export default class TheoriesRepository {
   }
 
   public async findById({ id }: IFindById): Promise<ITheory> {
-    const theory = await this.ormRepository.findOne(id)
+    const theory = await this.ormRepository.findOne(id, {
+      relations: ['theory_text']
+    })
 
     if (!theory) {
       throw new AppError('Theory not found')

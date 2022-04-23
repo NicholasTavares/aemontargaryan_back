@@ -1,6 +1,7 @@
 import Theory from "@modules/theories/entities/Theory";
 import { 
   Column, 
+  DeleteDateColumn, 
   Entity,  
   JoinColumn,  
   OneToOne, 
@@ -23,6 +24,9 @@ class Theory_text implements ITheory_text {
 
   @UpdateDateColumn()
   updated_at: Date
+
+  @DeleteDateColumn()
+  deleted_at: Date
 }
 
 export default Theory_text
