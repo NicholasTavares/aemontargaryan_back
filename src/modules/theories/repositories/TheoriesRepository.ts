@@ -3,6 +3,7 @@ import { EntityRepository, getRepository, Repository } from "typeorm";
 import Theory from "../entities/Theory";
 import { ICreateTheory } from "../models/ICreateTheory";
 import { IFindById } from "../models/IFindById";
+import { IListTheories } from "../models/IListTheories";
 import { ISoftDelete } from "../models/ISoftDelete";
 import { ITheory } from "../models/ITheory";
 
@@ -26,6 +27,15 @@ export default class TheoriesRepository {
     return theoryCreated
   }
 
+  public async findAll(): Promise<IListTheories> {
+    const theories = await this.ormRepository.find()
+
+    return {
+      theories,
+      count: theories.length
+    }
+  }
+
   public async findById({ id }: IFindById): Promise<ITheory> {
     const theory = await this.ormRepository.findOne(id)
 
@@ -42,14 +52,13 @@ export default class TheoriesRepository {
     return theorySaved
   }
 
+  /* 
+  TODO: deletar em cascata
+  */
   public async softDelete({ id }: ISoftDelete) {
-    const theory = await this.findById({
+    await this.findById({
       id
     })
-
-    if (!theory) {
-      throw new AppError('Theory not found')
-    }
 
     return this.ormRepository.softDelete(id)
   }
