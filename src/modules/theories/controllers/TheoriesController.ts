@@ -1,6 +1,7 @@
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateTheoryService from "../services/CreateTheoryService";
+import FindTheoryService from "../services/FindTheoryService";
 import ListTheoriesService from "../services/ListTheoriesServices";
 import SoftDeleteTheoryService from "../services/SoftDeleteTheoryService";
 
@@ -18,6 +19,18 @@ export default class TheoriesController {
     })
 
     return response.json(instanceToInstance(theoryCreated))
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+
+    const showTheory = new FindTheoryService()
+
+    const theory = await showTheory.execute({
+      id
+    })
+
+    return response.json(instanceToInstance(theory))
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
