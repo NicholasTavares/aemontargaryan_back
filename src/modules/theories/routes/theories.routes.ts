@@ -22,6 +22,16 @@ theoriesRouter.get(
   theoriesController.list
 )
 
+theoriesRouter.get(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
+  theoriesController.show
+)
+
 theoriesRouter.delete(
   '/:id', isAuthenticated,
   celebrate({
