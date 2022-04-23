@@ -1,17 +1,14 @@
 import { getCustomRepository } from "typeorm";
-import { IFindById } from "../models/IFindById";
-import { ITheory } from "../models/ITheory";
+import { IListTheories } from "../models/IListTheories";
 import TheoriesRepository from "../repositories/TheoriesRepository";
 
 class ListTheoriesService {
-  public async execute({id}: IFindById): Promise<ITheory> {
+  public async execute(): Promise<IListTheories> {
     const theoriesRepository = getCustomRepository(TheoriesRepository)
 
-    const theory = await theoriesRepository.findById({
-      id
-    })
+    const theories = await theoriesRepository.findAll()
 
-    return theory
+    return theories
   }
 }
 
