@@ -17,6 +17,11 @@ theoriesRouter.post(
   theoriesController.create
 )
 
+theoriesRouter.get(
+  '/', isAuthenticated,
+  theoriesController.list
+)
+
 theoriesRouter.delete(
   '/:id', isAuthenticated,
   celebrate({
