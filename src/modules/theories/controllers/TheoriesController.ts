@@ -4,6 +4,7 @@ import CreateTheoryService from "../services/CreateTheoryService";
 import FindTheoryService from "../services/FindTheoryService";
 import ListTheoriesService from "../services/ListTheoriesServices";
 import SoftDeleteTheoryService from "../services/SoftDeleteTheoryService";
+import UpdateTheoryService from "../services/UpdateTheoryService";
 
 export default class TheoriesController {
 
@@ -39,6 +40,21 @@ export default class TheoriesController {
     const theories = await listTheories.execute()
 
     return response.json(instanceToInstance(theories))
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params
+    const {title, theory_text} = request.body
+
+    const updateTheory = new UpdateTheoryService()
+
+    const theory = await updateTheory.execute({
+      id,
+      title,
+      theory_text
+    })
+
+    return response.json(instanceToInstance(theory))
   }
 
   public async softDelete(request: Request, response: Response): Promise<Response> {
