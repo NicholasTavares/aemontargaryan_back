@@ -1,9 +1,10 @@
 import { getCustomRepository } from "typeorm";
 import { ITheory } from "../models/ITheory";
+import { IUpdateTheory } from "../models/IUpdateTheory";
 import TheoriesRepository from "../repositories/TheoriesRepository";
 
 class UpdateTheoryService {
-  public async execute({id, title, theory_text}): Promise<ITheory> {
+  public async execute({id, title, theory_text}: IUpdateTheory): Promise<ITheory> {
     const theoriesRepository = getCustomRepository(TheoriesRepository)
 
     const theory = await theoriesRepository.findById({
