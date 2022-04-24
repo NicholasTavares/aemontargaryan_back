@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, RelationId, Repository } from "typeorm";
 import Theory from "../entities/Theory";
 import { ICreateTheory } from "../models/ICreateTheory";
 import { IFindById } from "../models/IFindById";
@@ -54,14 +54,11 @@ export default class TheoriesRepository {
     return theorySaved
   }
 
-  /* 
-  TODO: deletar em cascata
-  */
   public async softDelete({ id }: ISoftDelete) {
-    await this.findById({
+    const theory = await this.findById({
       id
     })
 
-    return this.ormRepository.softDelete(id)
+    return this.ormRepository.softRemove(theory)
   }
 }
