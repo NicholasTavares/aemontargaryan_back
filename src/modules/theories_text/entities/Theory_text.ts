@@ -15,7 +15,7 @@ class Theory_text implements ITheory_text {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @OneToOne(() => Theory, theory => theory.id)
+  @OneToOne(() => Theory, theory => theory.id, {onDelete: 'CASCADE'})
   @JoinColumn({name: 'id_theory'})
   id_theory: string;
 
