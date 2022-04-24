@@ -32,6 +32,22 @@ theoriesRouter.get(
   theoriesController.show
 )
 
+theoriesRouter.patch(
+  '/:id', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    }
+  }),
+  celebrate({
+    [Segments.BODY]: {
+      title: Joi.string(),
+      theory_text: Joi.string(),
+    }
+  }),
+  theoriesController.update
+)
+
 theoriesRouter.delete(
   '/:id', isAuthenticated,
   celebrate({
