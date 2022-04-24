@@ -1,8 +1,9 @@
 import AppError from "@shared/errors/AppError";
-import { EntityRepository, getRepository, RelationId, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import Theory from "../entities/Theory";
 import { ICreateTheory } from "../models/ICreateTheory";
 import { IFindById } from "../models/IFindById";
+import { IFindByTitle } from "../models/IFindByTitle";
 import { IListTheories } from "../models/IListTheories";
 import { ISoftDelete } from "../models/ISoftDelete";
 import { ITheory } from "../models/ITheory";
@@ -34,6 +35,16 @@ export default class TheoriesRepository {
       theories,
       count: theories.length
     }
+  }
+
+  public async findByTitle({ title }: IFindByTitle): Promise<ITheory[]> {
+    const theory = await this.ormRepository.find({
+      where: {
+        title: Like(`%${title}%`),
+      }
+    })
+
+    return theory
   }
 
   public async findById({ id }: IFindById): Promise<ITheory> {
