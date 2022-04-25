@@ -23,6 +23,16 @@ theoriesRouter.get(
 )
 
 theoriesRouter.get(
+  '/title', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      title: Joi.string(),
+    }
+  }),
+  theoriesController.findTitle
+)
+
+theoriesRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
