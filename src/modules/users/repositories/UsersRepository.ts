@@ -38,16 +38,12 @@ export default class UsersRepository {
     return user
   }
 
-  public async findByEmail({ email }: IFindByEmail): Promise<IUser> {
+  public async findByEmail({ email }: IFindByEmail): Promise<IUser | undefined> {
     const user = await this.ormRepository.findOne({
       where: {
         email,
       }
     })
-
-    if (!user) {
-      throw new AppError('User not found')
-    }
 
     return user
   }

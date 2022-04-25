@@ -14,7 +14,7 @@ class Role implements IRole {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
+  @Column({default: 'noviço'})
   name: string
 
   @CreateDateColumn()
