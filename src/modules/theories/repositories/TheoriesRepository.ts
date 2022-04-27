@@ -47,10 +47,12 @@ export default class TheoriesRepository {
     return theory
   }
 
-  public async findById({ id }: IFindById): Promise<ITheory> {
-    const theory = await this.ormRepository.findOne(id, {
-      relations: ['theory_text']
-    })
+  public async findById({ id }: IFindById): Promise<any> {
+    const theory = await this.ormRepository.createQueryBuilder('theory')
+    .where({id: id})
+    .select(['theory.id', 'theory.title', 'theory.created_at', 'user.id', 'user.name'])
+    .innerJoin('theory.id_user', 'user')
+    .getOne()
 
     if (!theory) {
       throw new AppError('Theory not found')
