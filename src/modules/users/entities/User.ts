@@ -22,7 +22,9 @@ class User implements IUser {
   @Exclude()
   password: string
 
-  @OneToMany(() => Theory, (theory) => theory.id_user)
+  @OneToMany(() => Theory, (theory) => theory.id_user, {
+    cascade: true
+  })
   theories: Theory[]
 
   @CreateDateColumn()

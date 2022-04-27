@@ -23,7 +23,9 @@ class Theory implements ITheory {
   @OneToOne(() => Theory_text, (theory_text) => theory_text.id_theory, {cascade: true})
   theory_text: Theory_text
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id, {
+    onDelete: 'CASCADE'
+  })
   id_user: string
 
   @CreateDateColumn()

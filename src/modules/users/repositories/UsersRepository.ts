@@ -29,7 +29,9 @@ export default class UsersRepository {
   }
 
   public async findById({ id }: IFindById): Promise<IUser> {
-    const user = await this.ormRepository.findOne(id)
+    const user = await this.ormRepository.findOne(id, {
+      relations: ['theories']
+    })
 
     if (!user) {
       throw new AppError('User not found')
@@ -86,10 +88,10 @@ export default class UsersRepository {
   }
 
   public async softDelete({ id }: ISoftDelete) {
-    await this.findById({
+    const user = await this.findById({
       id
     })
 
-    return this.ormRepository.softDelete(id)
+    return this.ormRepository.softRemove(user)
   }
 }
