@@ -20,4 +20,8 @@ export default class CommentsRepository {
 
     return commentCreated
   }
+
+  public async save(comment: IComment): Promise<IComment> {
+    return this.ormRepository.save(comment)
+  }
 }
